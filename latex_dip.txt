@@ -379,9 +379,9 @@ Se ne uporabljeno/dokoncano (se vedno samo defaultna stvar) \newline
 \chapter{Uvod}
 
 \section{Motivacija}
-Izhodišče za diplomsko nalogo je spletna varnost vseh študentov na Univerzi v Ljubljani. Tema za moje diplomsko delo bo iskanje alternativne rešitve za avtentikacijo uporabnikov Univerze v Ljubljani.Raziskal bom trenuten trg z rešitvami, ter poskusil vzpostaviti alternativno samostojno rešitev. \newline
+Izhodišče za diplomsko nalogo je spletna varnost vseh študentov na Univerzi v Ljubljani. Tema za moje diplomsko delo bo iskanje alternativne rešitve za avtentikacijo uporabnikov Univerze v Ljubljani.Leta 2019 sem našel pomanjkljivost pri avtentikacije uporabnikov, če bi želeli ponastaviti geslo. Raziskal bom trenuten trg z rešitvami, ter poskusil vzpostaviti alternativno samostojno rešitev. \newline
 
-V sklopu diplomske naloge bom raziskal kako oseba pride do svoje identitete, kakšen je proces, vse možne dogodke, ki se lahko zgodijo v času študija, ter če obstaja boljši način avtentikacije.
+V sklopu diplomske naloge bom raziskal kako oseba pride do svoje identitete, kakšen je proces, opisal trenutno pomanjkljivost, ter če obstaja boljši način avtentikacije.
 
 \chapter{ID Management}
 
@@ -435,6 +435,30 @@ Ker bomo uporavljali z velikim številom uporabniških imen in gesel, bomo potre
 Vse te dodatne plasti varnosti ne povečujejo bremena zaposlenih. Federacijska avtentikacija poenostavi prijavo uporabnikov z odpravo prijavnih pozivov in gesel.
 
 Za določitev identitete uporabnika zadostuje uporabniško ime in geslo. Za uporabnike federacijsko preverjanje pristnosti pomeni manj težav in hitrejši dostop.
+
+\section{Pomanjkljivost}
+Leta 2019 sem našel pomanjkljivost v avtentikaciji uporabnikov, če so želeli ponastaviti geslo. Če je uporabnik želel ponastaviti geslo, je moral priskrbeti naslednje podatke:
+\begin{itemize}
+    \item Ime
+    \item Priimek
+    \item Uporabniško ime
+    \item Datum rojstva
+    \item Vpisna številka
+    \item Fakulteto
+\end{itemize}
+
+Ko je uporabnik priskrbel podatke se mu je novo geslo izpisalo na ekran. Če bi želeli ponastaviti geslo, se potrebujemo avtenticirati, kar v preprosti definiciji pomeni, da potrebujemo dokazati da smo oseba, za katero se izdajamo da smo. S tem sistemom to ni mogoče zagotoviti zagotovo. Poglejmo zakaj.
+
+\begin{itemize}
+    \item Ime: Ga ve vsak, ki ga želi vedeti (npr. svojci, na družabnih omrežjih itd.)
+    \item Priimek: Ga ve vsak, ki ga želi vedeti (npr. svojci, na družabnih omrežjih itd.)
+    \item Uporabniško ime: Ga ne ve vsak, ampak ga ni težko ugotoviti. Uporabniško ime je vezano na osebo in je sestavljeno iz prve črke imena in prve črke priimka, ter štirih številk. Če bi se lotili ugibanja imamo zgolj 10000 možnosti, kar ni veliko.
+    \item Datum rojstva: Ga ve vsak, ki ga želi vedeti (npr. svojci, na družabnih omrežjih itd.).
+    \item Vpisna številka: Sestavljena iz osmih številk. Prve dve sta šifri fakultete, naslednji dve sta leto vpisa in zadnje štiri so "naključno generirane", ampak lahko z gotovostjo znižamo številko med eno od 0 do 250 (približno število vpisanih dijakov letno na fakulteto).
+    \item Fakulteto: Vezana na vpisno številko in pogosto hitro ugotovljena (npr. svojci, družabna omrežja itd.)
+\end{itemize}
+
+Vsi podatki, ki jih priskrbimo ne zadostujejo temu, da z gotovostjo potrdijo identiteto osebe, če želi ponastaviti geslo. Ta problem lahko rešimo z dvofaktorsko avtentikacijo, kjer bi uporabnik potreboval še drugo plast avtentikacije (običajno mobilni aparat oz. e-mail naslov ipd.). 
 
 \section{Predstavitev potencialnih rešitev}
 
@@ -774,13 +798,16 @@ Navigirajmo na prijavno stran od Wordpressa, kjer sedaj lahko opazimo gumb ''Log
 
 Ko pritisnemo ta gumb nas preusmeri na stran Authentika, kjer sedaj vpišemo uporabniško ime in geslo administratorja. Če je prijava uspešna lahko sedaj vidimo administratorski pogled z vsemi možnostmi v meniju. 
 \newline
-To nam je uspelo. Sedaj moramo ustvariti novega uporabnika v Authentiku. V Authentiku navigirajmo v direktorij ''Users'' (uporabniki), kjer lahko ustvarimo novega uporabnika s pritiskom gumba ''Create'' (ustvari). Vse kar potrebujemo je uporabniško ime, ki si ga izberemo, v tem primeru bomo izbrali ime ''student''. Ko smo ga ustvarili, kliknemo na novo ustvarjenega uporabnika, ter izberemo možnost ''Set password'' (nastavi geslo). Izberemo geslo. 
+To nam je uspelo. Sedaj moramo ustvariti novega uporabnika v Authentiku. V Authentiku navigirajmo v direktorij ''Users'' (uporabniki), kjer lahko ustvarimo novega uporabnika s pritiskom gumba ''Create'' (ustvari). Vse kar potrebujemo je uporabniško ime, ki si ga izberemo, v tem primeru bomo izbrali ime ''student''. Ko smo ga ustvarili, kliknemo na novo ustvarjenega uporabnika, ter izberemo možnost ''Set password'' (nastavi geslo). Izberemo geslo.  Prav tako nastavimo pomožni e-mail naslov, če bi potrebovali ponastaviti geslo. Za test konfiguracije bomo izbrali pomožni e-mail naslov, ki ga uporabljam za odvečno pošto. 
 \newline
 Ko smo vse to naredili ponovimo postopek prijave. Navigiramo na prijavno stran, vnesemo uporabniško ime in geslo in če vidimo administratorski prikaz, nam je uspelo. 
+\newline
 
 \chapter{Zaključek}
 
 V tem diplomskem delu smo razvili novo avtentikacijsko rešitev za potencialno uporabo na Univerzi v Ljubljani. Vzpostavili smo ponudnika identitete Authentik, ki je odprtokoden in sicer na naš Ubuntu Serverju. Vzpostavili smo ponudnika storitev, ki bo potreboval avtentikacijo. Za to nalogo smo izbrali Wordpress, zaradi vnaprej ponujenih vtičnikov, ki so nam olajšali delo. Za povezavo med njima pa smo izbrali protokol SAML, ki podpira federacijsko avtentikacijo, da lahko uporabnikom omogočimo preprostejšo prijavo na več storitev. 
+\newline
+S tem sistemom odpravimo pomanljkjivost, ker ob kreaciji uporabnikov, priskrbimo pomožne e-mail naslove, na katere se pošlje ponastavljena gesla. 
 \newline
 Sestava sistema nam je uspela in smo se uspešno prijavili v Wordpress (ponudnik storitve) s tem, da smo se avtenticirali pri našem ponudniku identitete (Authentik). 
 \newline
