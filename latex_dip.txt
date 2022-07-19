@@ -798,7 +798,7 @@ Navigirajmo na prijavno stran od Wordpressa, kjer sedaj lahko opazimo gumb ''Log
 
 Ko pritisnemo ta gumb nas preusmeri na stran Authentika, kjer sedaj vpišemo uporabniško ime in geslo administratorja. Če je prijava uspešna lahko sedaj vidimo administratorski pogled z vsemi možnostmi v meniju. 
 \newline
-To nam je uspelo. Sedaj moramo ustvariti novega uporabnika v Authentiku. V Authentiku navigirajmo v direktorij ''Users'' (uporabniki), kjer lahko ustvarimo novega uporabnika s pritiskom gumba ''Create'' (ustvari). Vse kar potrebujemo je uporabniško ime, ki si ga izberemo, v tem primeru bomo izbrali ime ''student''. Ko smo ga ustvarili, kliknemo na novo ustvarjenega uporabnika, ter izberemo možnost ''Set password'' (nastavi geslo). Izberemo geslo.  Prav tako nastavimo pomožni e-mail naslov, če bi potrebovali ponastaviti geslo. Za test konfiguracije bomo izbrali pomožni e-mail naslov, ki ga uporabljam za odvečno pošto. 
+To nam je uspelo. Sedaj moramo ustvariti novega uporabnika v Authentiku. V Authentiku navigirajmo v direktorij ''Users'' (uporabniki), kjer lahko ustvarimo novega uporabnika s pritiskom gumba ''Create'' (ustvari). Vse kar potrebujemo je uporabniško ime, ki si ga izberemo, v tem primeru bomo izbrali ime ''student''. Ko smo ga ustvarili, kliknemo na novo ustvarjenega uporabnika, ter izberemo možnost ''Set password'' (nastavi geslo). Izberemo geslo.  
 \newline
 Ko smo vse to naredili ponovimo postopek prijave. Navigiramo na prijavno stran, vnesemo uporabniško ime in geslo in če vidimo administratorski prikaz, nam je uspelo. 
 \newline
