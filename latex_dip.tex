@@ -270,7 +270,7 @@ Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
 % vstavite ustrezen naziv študijskega programa!
 \noindent\textbf{Vrsta naloge:} Diplomska naloga na univerzitetnem programu prve stopnje Računalništvo in informatika \\
 % izberite pravi habilitacijski naziv mentorja!
-\noindent\textbf{Mentor:} doc.dr. Andrej Brodnik\\
+\noindent\textbf{Mentor:} dr. Andrej Brodnik\\
 \noindent\textbf{Somentor:} asist.dr. Gašper Fele Žorž
 
 \bigskip
@@ -383,9 +383,9 @@ Izhodišče za diplomsko nalogo je spletna varnost vseh študentov na Univerzi v
 
 V sklopu diplomske naloge bom raziskal kako oseba pride do svoje identitete, kakšen je proces, opisal trenutno pomanjkljivost, ter če obstaja boljši način avtentikacije.
 
-\chapter{ID Management}
+\chapter{Upravljanje identitet za študente}
 
-Ko je kandidat uspešno sprejet na študijsko smer, mu generirajo študentsko identiteto. Vsak študent jo potrebuje, da lahko dostopa do e-učilnic, do e-mail naslova, izposoja gradivo v knjižnjici itd. \newline
+Ko je kandidat uspešno sprejet na študijsko smer se mu generira študentska identiteta. Vsak študent jo potrebuje, da lahko dostopa do e-učilnic, do e-mail naslova, izposoja gradivo v knjižnjici itd. \newline
 Ko se staž študija konča, se identiteta deaktivira in ostane neaktivna.
 
 \begin{figure}[]
@@ -395,7 +395,7 @@ Ko se staž študija konča, se identiteta deaktivira in ostane neaktivna.
 \end{figure}
 
 
-\section{Življenski cikel identitete za študente}
+\section{Življenski cikel identitet za študente}
 
 Za boljše razumevanje bomo definirali naslednje vloge:
 \begin{itemize}
@@ -411,33 +411,36 @@ Vsaka oseba ima možnost vpisa na študij. V tem trenutku v postopku, bomo to st
 Ko je \emph{kandidat} vpisan, prejme vlogo \emph{študenta}. V tem stanju \emph{študent} študira. Med študijem je lahko \emph{študent} izključen ali pa se izpiše. Če se to zgodi, pridobi vlogo \emph{bivšega študenta}. Če je uspešen in zaključi letnik oz. diplomira, se mu dodeli vloga \emph{bivši študent}, vsaj je z študijem zaključil. Če ni diplomiral, obstaja možnost, da mora je samo opravil letnik oz. mora ponavljati letnik. V takem primeru se ne zgodi nič (ostane mu vloga \emph{študent}). Če ne izpoljnjuje pogojev za ponavljanje letnika oz. vpis v višji letnik, se študij prekine in dobi vlogo \emph{bivši študent}.
 
 Vsaka oseba, ki je kadarkoli imela vlogo študenta (vse osebe z vlogami \emph{študent} oz. \emph{bivši študent}) imajo na univerzi svojo identiteto. 
+Celoten postopek se lahko vidimo na sliki \ref{fig:student}
 
-\begin{figure}[]
+\begin{figure}[H]
 \includegraphics[scale=0.8]{diploma-FRI-vzorec_11maj2021/ID MANAGEMENT ZA ŠTUDENTE.png}
-\caption{ID Management za študente}
+\caption{Upravljanje identitet za študente}
 \label{fig:student}
 \end{figure}
 
-Celoten postopek se lahko vidimo na sliki \ref{fig:student}
 
-\section{Trenutna implementacija avtentikacije}
 
-Kot sem že omenil v moji motivaciji diplomske naloge ima trenutna implementacija avtentikacije pomanjkljivost, ampak preden se spopademo s tem problemom najprej razčistimo kaj sploh je avtentikacija. 
+\section{Trenutno stanje}
+
+Kot sem že omenil v moji motivaciji diplomske naloge ima trenutna implementacija avtentikacije pomanjkljivost. 
 \newline 
-Avtentikacija je akcija, ki dokaže, da je nekaj resnično. V življenju se uporablja povsod. Če gremo na potovanje, pokažemo svojo letalsko karto in oseben dokument. S tem dokažemo, da smo res tista oseba, za katero smo trdili, da smo. 
-\newline
+ID portal za študente je v domeni uni-lj in ima nameščen varnostni certifikat. Iz spletnega naslova lahko ugotovimo, da gre za zaščiteno različico HTTP protokola. Uporabljen je SSL (Secure Sockets Layer) protokol, ki omogoča šifriran prenos informacij prek spleta s protokolom HTTP (Hypertext Transfer Protocol). SSL omogoča uporabo digitalnih certifikatov, tako da spletni brskalnik lahko loči pristno spletno stran aplikacije od lažne. 
 
-\section{Naše zahteve}
+Na osnovni strani ID portala za študente lahko študenti upravljajo s svojo identito, med njimi so naslednje možnosti
 
-Ker bomo uporavljali z velikim številom uporabniških imen in gesel, bomo potrebovali federacijsko avtentikacijo. S federacijsko avtentikacijo se dostop uporabnikov in preverjanje pristnosti uporavlja centralno. Vse uporabniške identitete se upravljajo v eni bazi podatkov. To omogoča upravitelju omrežja vpogled in vpogled v identitete zaposlenih. Upravitelj omrežja določi podatkovne točke potrebne za ustvarjanje identitet uporabnikov za največjo varnost in natančnost. Federacijska avtentikacija nato temelji na informacijah, ki so na voljo v uporabniški bazi in povezuje to identiteto z digitalnimi dejavnostmi vsakega uporabnika. Poleg tega lahko uporavitelj omrežja nastavijo pravilnike in nadzor kaj, kje in kdaj lahko uporabniki dostopajo do podatkov. Uporabnikom lahko odobrijo ali prekličejo dostop v trenutku, ko se pridružijo drugi skupini ali odidejo na drugo mesto.
-\newline
+\begin{itemize}
+    \item Aktivacija ali prevzem svoje UL-ID
+    \item Sprememba gesla
+    \item Urejanje pozabljenega gesla
+    \item Preverjanje kombinacije uporabniškega imena in gesla
+    \item Prijavljanje napak in težav
+\end{itemize}
 
-Vse te dodatne plasti varnosti ne povečujejo bremena zaposlenih. Federacijska avtentikacija poenostavi prijavo uporabnikov z odpravo prijavnih pozivov in gesel.
-
-Za določitev identitete uporabnika zadostuje uporabniško ime in geslo. Za uporabnike federacijsko preverjanje pristnosti pomeni manj težav in hitrejši dostop.
+Pomanjkljivost se nahaja v možnosti urejanja pozabljenega gesla. Celotno zgradbo si lahko preberemo v magistrskem delu Hede Šturm \cite{magistrska}.
 
 \section{Pomanjkljivost}
-Leta 2019 sem našel pomanjkljivost v avtentikaciji uporabnikov, če so želeli ponastaviti geslo. Če je uporabnik želel ponastaviti geslo, je moral priskrbeti naslednje podatke:
+Leta 2019 sem našel pomanjkljivost v avtentikaciji uporabnikov, če so želeli ponastaviti geslo. Če želimo ponastaviti geslo potrebujemo priskrbeti naslednje podatke:
 \begin{itemize}
     \item Ime
     \item Priimek
@@ -447,7 +450,7 @@ Leta 2019 sem našel pomanjkljivost v avtentikaciji uporabnikov, če so želeli 
     \item Fakulteto
 \end{itemize}
 
-Ko je uporabnik priskrbel podatke se mu je novo geslo izpisalo na ekran. Če bi želeli ponastaviti geslo, se potrebujemo avtenticirati, kar v preprosti definiciji pomeni, da potrebujemo dokazati da smo oseba, za katero se izdajamo da smo. S tem sistemom to ni mogoče zagotoviti zagotovo. Poglejmo zakaj.
+Ko priskrbimo podatke se nam novo geslo izpiše na ekran. Če bi želeli ponastaviti geslo, se potrebujemo avtenticirati, kar v preprosti definiciji pomeni, da potrebujemo dokazati da smo oseba, za katero se izdajamo da smo. S tem sistemom to ni mogoče zagotoviti. Poglejmo zakaj.
 
 \begin{itemize}
     \item Ime: Ga ve vsak, ki ga želi vedeti (npr. svojci, na družabnih omrežjih itd.)
@@ -460,11 +463,21 @@ Ko je uporabnik priskrbel podatke se mu je novo geslo izpisalo na ekran. Če bi 
 
 Vsi podatki, ki jih priskrbimo ne zadostujejo temu, da z gotovostjo potrdijo identiteto osebe, če želi ponastaviti geslo. Ta problem lahko rešimo z dvofaktorsko avtentikacijo, kjer bi uporabnik potreboval še drugo plast avtentikacije (običajno mobilni aparat oz. e-mail naslov ipd.). 
 
-\section{Predstavitev potencialnih rešitev}
+\section{Naše zahteve}
+
+Ker bomo uporavljali z velikim številom uporabniških imen in gesel, bomo potrebovali federacijsko avtentikacijo. S federacijsko avtentikacijo se dostop uporabnikov in preverjanje pristnosti uporavlja centralno. Vse uporabniške identitete se upravljajo v eni bazi podatkov. To omogoča upravitelju omrežja vpogled in vpogled v identitete zaposlenih. Upravitelj omrežja določi podatkovne točke potrebne za ustvarjanje identitet uporabnikov za največjo varnost in natančnost. Federacijska avtentikacija nato temelji na informacijah, ki so na voljo v uporabniški bazi in povezuje to identiteto z digitalnimi dejavnostmi vsakega uporabnika. Poleg tega lahko uporavitelj omrežja nastavijo pravilnike in nadzor kaj, kje in kdaj lahko uporabniki dostopajo do podatkov. Uporabnikom lahko odobrijo ali prekličejo dostop v trenutku, ko se pridružijo drugi skupini ali odidejo na drugo mesto.
+\newline
+
+Vse te dodatne plasti varnosti ne povečujejo bremena zaposlenih. Federacijska avtentikacija poenostavi prijavo uporabnikov z odpravo prijavnih pozivov in gesel.
+
+Za določitev identitete uporabnika zadostuje uporabniško ime in geslo. Za uporabnike federacijsko preverjanje pristnosti pomeni manj težav in hitrejši dostop.
+
+
+\chapter{Potencialne rešitve}
 
 Na slovenskem trgu je več ponudnikov, med njimi QUEST, MS MIM, OSI, LRK, Unistar, IBM in še več.
 
-Ampak mene zanima, če bi lahko univerza sama uredila svojo avtentikacijsko rešitev. Zaradi tega sem si pogledal odprtokodne rešitve. Med njimi so naslednji, kot so Authentik, Keycloak, Authelia...
+Ampak nas zanima, če bi lahko univerza sama uredila svojo avtentikacijsko rešitev. Zaradi tega sem si pogledal odprtokodne rešitve. Med njimi so naslednji, kot so Authentik, Keycloak, Authelia...
 
 
 \subsection{Možnost 1 - Authentik}
@@ -484,7 +497,6 @@ Meni najboljša lastnost je pa aktivna baza uporabnikov in razvijalcev, ki so do
 Keycloak je po zmožnostih zelo podoben Authentiku. 
 
 Prav tako podpira SAML2, OAuth2 in OIDC. Ne podpira protokola LDAP, ampak ga v nimamo v našem načrtu. 
-
 \newline
 Uporabniki se prav tako lahko registrirajo in imamo popoln dostop do funkcionalnosti. Podpira večkratno preverjanje pristnosti.
 
@@ -496,9 +508,7 @@ V industriji je od 2016 in je uporabniku prijazna, ampak za nas ni primerna.
 \newline
 Za naše potrebe ne podpira protookla SAML2 ali OAuth2, kar je za nas ključnega pomena, zato za nas ni primerna. 
 
-
-
-\chapter{Zgradba sistema}
+\section{Arhitektura sistema}
 
 Sedaj ko vemo kaj potrebujemo lahko začnemo z zgradbo sistema. Potrebovali bomo ponudnika identitete, ki vzpostavi identiteto uporabnika in se poveže s ponudnikom storitev. Nato pa varnostni protokol SAML (Security Assertion Markup Language) preveri pristnost uporabnika. 
 
@@ -506,6 +516,12 @@ Izbrati moramo ponudnika identitete, ki nudi podporo federacijam, ter podpira pr
 \newline
 
 Authentik sem postavil na Ubuntu Serverju ter vzpostavil par testnih uporabnikov. Za ponudnika storitve sem vzpostavil Wordpress stran na spletni strani www.davidkonc.xyz (dostopno: 23.5.2022). Uporabnik lahko bere blog, ter ureja nastavitve, ampak da lahko ureja nastavitve se more prijaviti. Za prijavo se uporabnika preusmeri na Authentik, kjer se avtenticira in potem lahko ureja stran. 
+
+\begin{figure}[H]
+\includegraphics[scale=0.7]{diploma-FRI-vzorec_11maj2021/SAML.jpg}
+\caption{Kako deluje SAML}
+\label{fig:grafMoj}
+\end{figure}
 
  \section{Namestitev Authentika}
 
@@ -688,14 +704,7 @@ SAML deluje tako, da izmenjuje uporabniške podatke, kot so prijave, stanje prev
 \newline
 Dober primer je letalska industrija. Preden se vkrcate na letalo, mora letalski prevoznik potrditi, da smo tisti, za katerega se predstavljamo, da zagotovi varnost drugih potnikov. Torej preverijo našo identiteto z neko obliko identifikacije s sliko, ki jo je izdal državni organ. Ko potrdijo, da se vaše ime na naši identiteti ujema z imenom na naši letalski vozovnici, nam nato dovolijo, da se vkrcamo na letalo.
 \newline
-V spodnji sliki je država ponudnik identitete, letalska družba pa ponudnik storitev. Naša identifikacijska številka, ki jo je izdal državni organ, je trditev SAML. Ko zaprosimo za osebno izkaznico, moramo običajno izpolniti obrazec, se fotografirati in v nekaterih okoliščinah tudi oddati prstne odtise. Država (ponudnik storitev) nato te identifikacijske atribute shrani v svojo bazo podatkov in nam izda fizični ID, povezan z našo identiteto. V primeru letalske družbe, ko prispemo do izhoda, letalska družba (ponudnik storitev) preveri našo trditev ID (SAML). Letalska družba sprejme našo osebno izkaznico, saj vsebuje naše podatke, osebna izkaznica ali potni list pa se pregleda kot veljaven dokument. Po uspešni avtentikaciji nam letalska družba dovoli vkrcanje na letalo. To sem prikazal na spodnji sliki \ref{fig:grafMoj}.
-
-\begin{figure}[H]
-\hspace{-2cm}
-\includegraphics[scale=0.7]{diploma-FRI-vzorec_11maj2021/SAML.jpg}
-\caption{Kako deluje SAML}
-\label{fig:grafMoj}
-\end{figure}
+V spodnji sliki \ref{fig:grafMoj} je država ponudnik identitete, letalska družba pa ponudnik storitev. Naša identifikacijska številka, ki jo je izdal državni organ, je trditev SAML. Ko zaprosimo za osebno izkaznico, moramo običajno izpolniti obrazec, se fotografirati in v nekaterih okoliščinah tudi oddati prstne odtise. Država (ponudnik storitev) nato te identifikacijske atribute shrani v svojo bazo podatkov in nam izda fizični ID, povezan z našo identiteto. V primeru letalske družbe, ko prispemo do izhoda, letalska družba (ponudnik storitev) preveri našo trditev ID (SAML). Letalska družba sprejme našo osebno izkaznico, saj vsebuje naše podatke, osebna izkaznica ali potni list pa se pregleda kot veljaven dokument. Po uspešni avtentikaciji nam letalska družba dovoli vkrcanje na letalo.
 
 \subsubsection{Postopek avtentikacije z uporabom SAML-a}
 
@@ -706,7 +715,7 @@ SAML uporablja potek dela za preverjanje pristnosti, ki temelji na zahtevkih. Pr
     \item Spletna aplikacija se odzove z zahtevo SAML.
     \item Brskalnik posreduje zahtevo SAML ponudniku identitete.
     \item Ponudnik identitete razčleni zahtevo SAML.
-    \item Ponudnik identitete preveri pristnost uporabnika tako, da zahteva uporabniško ime in geslo ali kakšen drug faktor avtentikacije. OPOMBA: Ponudnik identitete bo ta korak preskočil, če je uporabnik že overjen.
+    \item Če uporabnik ni overjen potem ponudnik identitete preveri pristnost uporabnika tako, da zahteva uporabniško ime in geslo ali kakšen drug faktor avtentikacije. Če je uporabnik že overjen, potem ponudnik identitete ta korak preskoči.
     \item Ponudnik identitete generira odgovor SAML in ga vrne v uporabnikov brskalnik.
     \item Brskalnik pošlje ustvarjen odgovor SAML spletni aplikaciji ponudnika storitev, ki ga preveri.
     \item Če je preverjanje uspešno, spletna aplikacija uporabniku odobri dostop.
