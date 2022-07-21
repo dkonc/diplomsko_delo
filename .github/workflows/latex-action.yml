@@ -22,7 +22,6 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: ..\..\latex_dip.tex
-          working_directory: new/
       - name: Install latexdiff
         run: sudo apt-get install latexdiff
       - name: Run latexdiff
